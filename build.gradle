@@ -1,0 +1,59 @@
+plugins {
+    id 'java'
+    id 'application'
+}
+
+group = 'io.github.fontatlas'
+version = '1.0.0'
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(17)
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'com.google.code.gson:gson:2.11.0'
+    implementation 'info.picocli:picocli:4.7.7'
+}
+
+application {
+    mainClass = 'fontatlas.Main'
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8'
+}
+
+// Self-contained runnable jar, shipped as the release artifact.
+tasks.register('fatJar', Jar) {
+    archiveClassifier = 'all'
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+    manifest {
+        attributes 'Main-Class': 'fontatlas.Main'
+        attributes 'Implementation-Title': project.name, 'Implementation-Version': project.version
+    }
+    from sourceSets.main.output
+    def runtime = configurations.runtimeClasspath
+    dependsOn runtime
+    from {
+        runtime.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+    exclude 'META-INF/*.SF', 'META-INF/*.DSA', 'META-INF/*.RSA'
+}
+
+// Makes the version visible to `font-atlas-kit --version` at runtime.
+tasks.processResources {
+    def props = [version: project.version]
+    filesMatching('fontatlas-version.properties') {
+        expand props
+    }
+}
+
+tasks.build {
+    dependsOn tasks.fatJar
+}
