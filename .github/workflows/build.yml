@@ -11,7 +11,7 @@ permissions:
 
 jobs:
   Build:
-    name: Build font-atlas-kit
+    name: Build AugmentFont-Tool
     runs-on: ubuntu-latest
     outputs:
       Jar_Name: ${{ steps.Find_Jar.outputs.Jar_Name }}
@@ -71,7 +71,7 @@ jobs:
       - name: Upload Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: font-atlas-kit
+          name: AugmentFont-Tool
           path: ${{ steps.Find_Jar.outputs.Jar_Path }}
           if-no-files-found: error
 
@@ -91,7 +91,7 @@ jobs:
       - name: Download Artifact
         uses: actions/download-artifact@v4
         with:
-          name: font-atlas-kit
+          name: AugmentFont-Tool
           path: Release-Assets
 
       - name: List Release Assets
@@ -103,7 +103,7 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           tag: v${{ needs.Build.outputs.Version }}
-          name: font-atlas-kit v${{ needs.Build.outputs.Version }}
+          name: AugmentFont-Tool v${{ needs.Build.outputs.Version }}
           prerelease: false
           allowUpdates: true
           makeLatest: true
@@ -111,7 +111,7 @@ jobs:
           removeArtifacts: true
           artifacts: Release-Assets/*.jar
           body: |
-            ## 🔤 font-atlas-kit v${{ needs.Build.outputs.Version }}
+            ## 🔤 AugmentFont-Tool v${{ needs.Build.outputs.Version }}
 
             Automated build triggered by commit [`${{ github.sha }}`](https://github.com/${{ github.repository }}/commit/${{ github.sha }}) on `${{ github.ref_name }}`.
 
