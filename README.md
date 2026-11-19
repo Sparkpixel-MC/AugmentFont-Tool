@@ -1,4 +1,4 @@
-# font-atlas-kit
+# AugmentFont-Tool
 
 A small command-line toolkit for building and maintaining **bitmap font atlases** — one PNG sheet plus one JSON descriptor with a tightly-cropped cell per glyph.
 
