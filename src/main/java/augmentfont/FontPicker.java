@@ -1,4 +1,4 @@
-package fontatlas;
+package augmentfont;
 
 import java.awt.Font;
 import java.nio.file.Files;

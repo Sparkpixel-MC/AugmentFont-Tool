@@ -1,4 +1,4 @@
-package fontatlas;
+package augmentfont;
 
 import com.google.gson.JsonObject;
 import picocli.CommandLine.Command;

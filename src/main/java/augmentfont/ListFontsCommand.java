@@ -1,4 +1,4 @@
-package fontatlas;
+package augmentfont;
 
 import picocli.CommandLine.Command;
 import picocli.CommandLine.Option;

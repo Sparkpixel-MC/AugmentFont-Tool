@@ -3,7 +3,7 @@ plugins {
     id 'application'
 }
 
-group = 'io.github.fontatlas'
+group = 'io.github.augmentfont'
 version = '1.0.0'
 
 java {
@@ -22,7 +22,7 @@ dependencies {
 }
 
 application {
-    mainClass = 'fontatlas.Main'
+    mainClass = 'augmentfont.Main'
 }
 
 tasks.withType(JavaCompile).configureEach {
@@ -34,7 +34,7 @@ tasks.register('fatJar', Jar) {
     archiveClassifier = 'all'
     duplicatesStrategy = DuplicatesStrategy.EXCLUDE
     manifest {
-        attributes 'Main-Class': 'fontatlas.Main'
+        attributes 'Main-Class': 'augmentfont.Main'
         attributes 'Implementation-Title': project.name, 'Implementation-Version': project.version
     }
     from sourceSets.main.output
@@ -46,10 +46,10 @@ tasks.register('fatJar', Jar) {
     exclude 'META-INF/*.SF', 'META-INF/*.DSA', 'META-INF/*.RSA'
 }
 
-// Makes the version visible to `font-atlas-kit --version` at runtime.
+// Makes the version visible to `augmentfont-tool --version` at runtime.
 tasks.processResources {
     def props = [version: project.version]
-    filesMatching('fontatlas-version.properties') {
+    filesMatching('augmentfont-version.properties') {
         expand props
     }
 }

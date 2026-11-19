@@ -30,7 +30,7 @@ Conventions:
 ### `regenerate` — rebuild the whole atlas
 
 ```text
-font-atlas-kit regenerate [OPTIONS] ATLAS_JSON ATLAS_PNG FONT_FILE [SOURCE_DIR]...
+augmentfont-tool regenerate [OPTIONS] ATLAS_JSON ATLAS_PNG FONT_FILE [SOURCE_DIR]...
 ```
 
 Rasters a brand-new sheet from the given TTF/OTF, covering:
@@ -53,7 +53,7 @@ Characters the font cannot display (arrows, geometric shapes, ...) are copied ve
 ### `augment` — append missing glyphs
 
 ```text
-font-atlas-kit augment [OPTIONS] ATLAS_JSON ATLAS_PNG [SOURCE_DIR]...
+augmentfont-tool augment [OPTIONS] ATLAS_JSON ATLAS_PNG [SOURCE_DIR]...
 ```
 
 Scans the source directories for characters, picks glyphs that are **missing** from the atlas, rasterizes them with a matching CJK sans and appends them in new rows below the existing sheet. The PNG is extended in place, the JSON is rewritten. Exits cleanly when nothing is missing.
@@ -67,7 +67,7 @@ Scans the source directories for characters, picks glyphs that are **missing** f
 ### `list-fonts`
 
 ```text
-font-atlas-kit list-fonts [--all]
+augmentfont-tool list-fonts [--all]
 ```
 
 Lists installed font families that are candidates for CJK rasterization (`--all` for everything).
@@ -77,18 +77,18 @@ Lists installed font families that are candidates for CJK rasterization (`--all`
 Requires JDK 17+ (JDK 25 recommended) and the bundled Gradle wrapper:
 
 ```bash
-./gradlew build          # produces build/libs/font-atlas-kit-<version>-all.jar
-java -jar build/libs/font-atlas-kit-1.0.0-all.jar --help
+./gradlew build          # produces build/libs/augmentfont-tool-<version>-all.jar
+java -jar build/libs/augmentfont-tool-1.0.0-all.jar --help
 ```
 
 ## Typical workflow
 
 ```bash
 # 1. one-time full rebuild with the project font
-java -jar font-atlas-kit-all.jar regenerate atlas.json atlas.png HarmonyOS_Sans_SC_Bold.ttf -w 1024 src/
+java -jar augmentfont-tool-all.jar regenerate atlas.json atlas.png HarmonyOS_Sans_SC_Bold.ttf -w 1024 src/
 
 # 2. after new UI code lands, append whatever is missing
-java -jar font-atlas-kit-all.jar augment atlas.json atlas.png -f HarmonyOS_Sans_SC_Bold.ttf src/
+java -jar augmentfont-tool-all.jar augment atlas.json atlas.png -f HarmonyOS_Sans_SC_Bold.ttf src/
 ```
 
 > Heads-up: rasterization happens with the Java2D stack of the *running* JVM, so glyph shapes and antialiasing depend on the JVM/platform. Rebuild on one machine and commit the result, rather than mixing machines.

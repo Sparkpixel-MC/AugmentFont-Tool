@@ -1,4 +1,4 @@
-package fontatlas;
+package augmentfont;
 
 import picocli.CommandLine;
 import picocli.CommandLine.Command;
@@ -8,7 +8,7 @@ import picocli.CommandLine.Spec;
 import java.util.concurrent.Callable;
 
 /**
- * font-atlas-kit — toolkit for maintaining a bitmap font atlas
+ * AugmentFont-Tool — toolkit for maintaining a bitmap font atlas
  * (one PNG sheet + one JSON descriptor with tight ink crops per glyph).
  *
  * Atlas conventions (em is taken from the atlas "size" field):
@@ -17,7 +17,7 @@ import java.util.concurrent.Callable;
  *     padding: originX = 1, originY = baseline row inside the cell;
  *   - advance = rounded TextLayout advance.
  */
-@Command(name = "font-atlas-kit",
+@Command(name = "augmentfont-tool",
         mixinStandardHelpOptions = true,
         versionProvider = Version.class,
         description = "Toolkit for building and maintaining bitmap font atlases (PNG sheet + JSON descriptor).",
